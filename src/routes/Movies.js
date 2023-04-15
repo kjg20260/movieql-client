@@ -1,11 +1,21 @@
 import { gql, useQuery } from "@apollo/client"
 import { Link } from "react-router-dom";
 import Genre from "../components/Genre";
+import Card from "../components/Card";
+
 const ALL_MOVIES = gql`
     query getMovies {
         allMovies{
-            title
             id
+            title
+            rating
+            genres
+            summary
+            year
+            background_image
+            small_cover_image
+            medium_cover_image
+            large_cover_image
         }
     }
 `;
@@ -24,13 +34,7 @@ export default function Movies(){
                 <Genre></Genre>
             </section> */}
             <ul>
-                {data.allMovies.map(movie => (
-                    <li key={movie.id}>
-                        <Link to={`/movies/${movie.id}`} id={movie.id}>
-                            {movie.title}
-                        </Link>
-                    </li>
-                ))}
+                {data.allMovies.map(movie => <Card key={movie.id} movie={movie}/>)}
             </ul>
         </div>
     );
